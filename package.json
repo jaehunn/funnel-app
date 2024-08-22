@@ -2,6 +2,7 @@
   "name": "funnel-app",
   "private": true,
   "version": "0.0.0",
+  "packageManager": "yarn@4.4.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
