@@ -1,8 +1,9 @@
-import { StrictMode } from "react";
+import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 
+import ErrorResetBoundary from "./components/ErrorResetBoundary";
 import router from "./router";
 import queryClient from "./queries";
 
@@ -25,7 +26,11 @@ enableMocking().then(() => {
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={createBrowserRouter(router)} />
+        <ErrorResetBoundary>
+          <Suspense fallback={"loading..."}>
+            <RouterProvider router={createBrowserRouter(router)} />
+          </Suspense>
+        </ErrorResetBoundary>
       </QueryClientProvider>
     </StrictMode>
   );

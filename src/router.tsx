@@ -1,11 +1,11 @@
-import { Navigate, Outlet, RouteObject } from "react-router-dom";
-import { css } from "@emotion/react";
+import { Navigate, RouteObject } from "react-router-dom";
 
 import A from "./pages/A.page";
 import B from "./pages/B.page";
 import C from "./pages/C.page";
 import D from "./pages/D.page";
-import theme from "./styles/theme";
+import Layout from "./components/Layout";
+import ErrorPage from "./pages/Error.page";
 
 export const PARE_ROUTES = {
   A: "a",
@@ -17,6 +17,7 @@ export const PARE_ROUTES = {
 const router: RouteObject[] = [
   {
     element: <Layout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         // Default
@@ -26,7 +27,12 @@ const router: RouteObject[] = [
       {
         path: `/${PARE_ROUTES["A"]}`,
         element: <A />,
-        errorElement: <ErrorPage />,
+
+        /**
+         * <A /> 에서 error 객체를 받아낼 수 없다.
+         * 상위 계층에서 잡아낼 수 있을까.
+         */
+        // errorElement: <ErrorPage />,
       },
       {
         path: `/${PARE_ROUTES["B"]}`,
@@ -47,34 +53,6 @@ const router: RouteObject[] = [
     ],
   },
 ];
-
-// TODO:
-function Layout() {
-  return (
-    <div
-      css={css`
-        // width to device
-        max-width: 100%;
-
-        // height to contents
-        height: auto;
-      `}
-    >
-      <div
-        css={css`
-          background: ${theme.colors.white};
-        `}
-      >
-        <Outlet />
-      </div>
-    </div>
-  );
-}
-
-// TODO:
-function ErrorPage() {
-  return <div>에러가 발생했어요.</div>;
-}
 
 // TODO:
 function NotFoundPage() {

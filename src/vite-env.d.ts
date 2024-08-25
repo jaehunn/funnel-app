@@ -10,3 +10,6 @@ interface ImportMetaEnv {
   readonly VITE_APP_URL: string;
   readonly VITE_APP_API_URL: string;
 }
+
+// Custom Types
+type Nullable<T> = T | null;

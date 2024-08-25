@@ -1,23 +1,40 @@
 /** @see {docs} https://mswjs.io/docs/network-behavior/rest */
 
 // src/mocks/handlers.js
-import { http, HttpResponse } from "msw";
+import { delay, http, HttpResponse } from "msw";
 import { getUserUrl } from "../../apis/getUser";
 
 export const handlers = [
-  http.get(`${getUserUrl()}`, ({ cookies }) => {
-    // cookies
-    if (cookies?.session != null) {
-      /** @see {docs} https://developer.mozilla.org/ko/docs/Web/HTTP/Status/401 */
-      return new HttpResponse(null, { status: 401 });
+  // basic
+  // http.get(`${getUserUrl()}`, ({ cookies }) => {
+  //   // cookies
+  //   if (cookies?.session != null) {
+  //     /** @see {docs} https://developer.mozilla.org/ko/docs/Web/HTTP/Status/401 */
+  //     return new HttpResponse(null, { status: 401 });
+  //   }
+
+  //   return HttpResponse.json(
+  //     {
+  //       name: "Jaehun",
+  //     },
+  //     { status: 200 }
+  //   );
+  // }),
+
+  http.get(`${getUserUrl()}`, async () => {
+    await delay(3000);
+
+    // 50% failure
+    const shouldFail = Math.random() < 0.9;
+
+    if (shouldFail) {
+      return HttpResponse.json(
+        { error: "Internal Server Error" },
+        { status: 500 }
+      );
     }
 
-    return HttpResponse.json(
-      {
-        name: "Jaehun",
-      },
-      { status: 200 }
-    );
+    return HttpResponse.json({ error: "Success" }, { status: 200 });
   }),
 
   // TODO:

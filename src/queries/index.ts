@@ -4,7 +4,8 @@ import { QueryClient } from "@tanstack/react-query";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // ...
+      /** @see {docs} https://tanstack.com/query/latest/docs/framework/react/guides/query-retries#query-retries */
+      retry: false,
     },
     mutations: {
       // ...
