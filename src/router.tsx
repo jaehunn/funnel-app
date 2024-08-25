@@ -1,9 +1,11 @@
 import { Navigate, Outlet, RouteObject } from "react-router-dom";
+import { css } from "@emotion/react";
 
 import A from "./pages/A.page";
 import B from "./pages/B.page";
 import C from "./pages/C.page";
 import D from "./pages/D.page";
+import theme from "./styles/theme";
 
 export const PARE_ROUTES = {
   A: "a",
@@ -49,8 +51,22 @@ const router: RouteObject[] = [
 // TODO:
 function Layout() {
   return (
-    <div>
-      <Outlet />
+    <div
+      css={css`
+        // width to device
+        max-width: 100%;
+
+        // height to contents
+        height: auto;
+      `}
+    >
+      <div
+        css={css`
+          background: ${theme.colors.white};
+        `}
+      >
+        <Outlet />
+      </div>
     </div>
   );
 }

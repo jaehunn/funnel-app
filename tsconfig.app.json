@@ -15,6 +15,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    // https://emotion.sh/docs/typescript
+    "jsxImportSource": "@emotion/react",
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
