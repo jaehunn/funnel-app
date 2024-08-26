@@ -3,14 +3,14 @@ import useGetUser from "../queries/useGetUser";
 const A = () => {
   const { data: userData, error, isFetching } = useGetUser();
 
-  console.log({ error });
-
   if (error != null) {
-    console.log("error?!");
-
     // retry === false
     if (isFetching === false) {
-      // ...
+      // Axios Error
+      throw error;
+
+      // Throw Error
+      // throw Error("커스텀 에러입니다.");
     }
   }
 
